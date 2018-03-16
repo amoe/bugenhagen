@@ -18,7 +18,7 @@ Will extract the HTML content of the `entry-content` div.
 Will create tab-separated output of article dates.  This uses a META tag
 to get the real date.
 
-## `extract_titles_diggler.perl`
+## `extract_article_titles.perl`
 
 Creates the tab-separated input file that can later be used by `add_titles`.
 
