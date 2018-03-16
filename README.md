@@ -9,7 +9,7 @@ Then it will call the sub-script `add_to_start_of_element`, which will create
 a new H1 element inside the `entry-content` div.
 Useful for adding titles to otherwise title-less articles.
 
-## `carldiggler.perl`
+## `extract_article_content.perl`
 
 Will extract the HTML content of the `entry-content` div.
 
@@ -31,3 +31,15 @@ format.
 
 This is going to strip a given set of matches.  This is a postprocessing step
 that can be run after the `extract_article_content` step.
+
+## `extract_article_v0.perl`
+
+A previous version of `extract_article_content` that expects to locate 
+the article content in a different HTML structure; specifically it just takes
+the content of the first `article` element verbatim.
+
+## `driver.perl`
+
+This works with `extract_article_v0` as a wrapper script.  It just runs the
+`tidy` program on the output before and after, to eliminate spurious changes
+caused by the parsing and re-parsing of the output.
