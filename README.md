@@ -13,7 +13,7 @@ Useful for adding titles to otherwise title-less articles.
 
 Will extract the HTML content of the `entry-content` div.
 
-## `diggler_dates.perl`
+## `extract_article_dates.perl`
 
 Will create tab-separated output of article dates.  This uses a META tag
 to get the real date.
