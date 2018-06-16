@@ -34,6 +34,13 @@ GetOptions ("length=i" => \$length,    # numeric
             "verbose"  => \$verbose)   # flag
     or die("Error in command line arguments\n");
 
+my @strippable = (
+    class => 'author_photo',
+    _tag => 'img',
+    _tag => 'script',
+    _tag => 'iframe'
+);
+
 sub main {
     for my $arg (@_) {
         my $content = read_text($arg);

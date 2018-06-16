@@ -9,7 +9,6 @@ use Log::Any qw($log);
 use Log::Dispatch;
 use Log::Any::Adapter;
 
-
 sub init_logging {
     # Send all logs to Log::Dispatch
     my $dispatch_logger = Log::Dispatch->new(

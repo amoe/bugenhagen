@@ -29,8 +29,8 @@ format.
 
 ## `strip_images.perl`
 
-This is going to strip a given set of matches.  This is a postprocessing step
-that can be run after the `extract_article_content` step.
+This is going to strip some useless tags from the article content.  This is a
+postprocessing step that can be run after the `extract_article_content` step.
 
 ## `extract_article_v0.perl`
 
