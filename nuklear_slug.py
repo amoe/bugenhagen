@@ -2,6 +2,7 @@ import urllib.request
 import time
 import bs4
 import pprint
+import pickle
 
 PARSER = 'lxml'
 
@@ -21,7 +22,9 @@ def f7(seq):
     seen_add = seen.add
     return [x for x in seq if not (x in seen or seen_add(x))]
 
-for url in part_urls[0:1]:
+all_posts = []
+
+for url in part_urls:
     print(url)
     page_data = urllib.request.urlopen(url)
     soup = bs4.BeautifulSoup(page_data, PARSER)
@@ -37,8 +40,6 @@ for url in part_urls[0:1]:
         all_containing_tds.append(containing_td)
 
     seen = set()
-
-    all_posts = []
 
     
     for post_td in all_containing_tds:
@@ -57,7 +58,8 @@ for url in part_urls[0:1]:
             all_posts.append(post_record)
             seen.add(post_td)
             
-pprint.pprint(all_posts)
+with open('foo.pkl', 'wb') as handle:
+    pickle.dump(all_posts, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
     
