@@ -17,5 +17,9 @@
     <aside epub:type="footnote" id="n2">
       Some other text that shouldn't be shown
     </aside>
+
+    {% autoescape false %}
+    {{ body }}
+    {% endautoescape %}
 </body>
 </html>

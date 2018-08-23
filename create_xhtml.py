@@ -4,14 +4,25 @@ import jinja2
 
 env = jinja2.Environment(
     loader=jinja2.FileSystemLoader('templates'),
+    extensions=['jinja2.ext.autoescape'],
     autoescape=True
 )
 
 with open('foo.pkl', 'rb') as handle:
-    foo = pickle.load(handle)
+    articles = pickle.load(handle)
 
 tmpl = env.get_template('mytemplate.xhtml.j2')
 
-result = tmpl.render({'title': "foo bar"})
 
-print(result)
+for record in articles:
+    print(record['user'])
+    body = record['body']
+    
+    tmpl_params = {
+        'title': "foo bar",
+        'body': body
+    }
+
+    result = tmpl.render(tmpl_params)
+#    print(result)
+
