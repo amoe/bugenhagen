@@ -6,18 +6,6 @@
 <title>{{ title }}</title>
 </head>
 <body>
-    <p>Please check the note <a epub:type="noteref" href="#n1">1</a> for more
-    info.</p>    
-
-
-    <aside epub:type="footnote" id="n1">
-      The text of the footnote
-    </aside>
-
-    <aside epub:type="footnote" id="n2">
-      Some other text that shouldn't be shown
-    </aside>
-
     {% autoescape false %}
     {{ body }}
     {% endautoescape %}
