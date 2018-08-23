@@ -13,13 +13,17 @@
           href="nav.xhtml" 
           properties="nav"
           media-type="application/xhtml+xml"/>
-    <item id="c1" 
-          href="chap1.xhtml" 
+    {% for item in articles %}
+    <item id="{{item.id}}" 
+          href="{{article_subdirectory}}/{{item.basename}}" 
           media-type="application/xhtml+xml"/>
+    {% endfor %}
   </manifest>
 
   <spine>
     <itemref idref="nav"/>
-    <itemref idref="c1"/>
+    {% for item in articles %}
+    <itemref idref="{{item.id}}"/>
+    {% endfor %}
   </spine>
 </package>

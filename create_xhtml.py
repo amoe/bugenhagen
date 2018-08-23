@@ -4,6 +4,8 @@ import jinja2
 import os
 import pathlib
 import shutil
+import uuid
+import subprocess
 
 env = jinja2.Environment(
     loader=jinja2.FileSystemLoader('templates'),
@@ -44,6 +46,7 @@ for index, record in enumerate(articles):
         f.write(result)
 
     compilation_record = {
+        'id': uuid.uuid4(),
         'basename': article_basename,
         'article_path': output_path
     }
@@ -52,12 +55,18 @@ for index, record in enumerate(articles):
 
 print("Render done")
 
+print("Creating epub structure")
+
 epub_root_dir = "epub_out"
 pathlib.Path(epub_root_dir).mkdir(exist_ok=True)
 
 def epub_root_render(source, target, context={}):
     content = env.get_template(source).render(context)
     path = os.path.join(epub_root_dir, target)
+
+    target_dir = os.path.dirname(path)
+    pathlib.Path(target_dir).mkdir(exist_ok=True)
+
     with open(path, 'w') as f:
         f.write(content)
 
@@ -68,10 +77,19 @@ article_target_dir = os.path.join(epub_root_dir, article_subdirectory)
 pathlib.Path(article_target_dir).mkdir(exist_ok=True)
 
 
-epub_root_render('main.opf.j2', 'main.opf')
+articles_context = {
+    'articles': compiled_articles,
+    'article_subdirectory': article_subdirectory
+}
+
+epub_root_render('main.opf.j2', 'main.opf', articles_context)
 epub_root_render('mimetype.j2', 'mimetype')
-epub_root_render('nav.xhtml.j2', 'nav.xhtml', {'articles': compiled_articles,
-                                               'article_subdirectory': article_subdirectory})
+epub_root_render('nav.xhtml.j2', 'nav.xhtml', articles_context)
+epub_root_render('container.xml', 'META-INF/container.xml')
 
 for article in compiled_articles:
     shutil.copy(article['article_path'], article_target_dir)
+
+print("Done")
+
+
