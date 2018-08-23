@@ -44,7 +44,13 @@ print("Render done")
 epub_root_dir = "epub_out"
 pathlib.Path(epub_root_dir).mkdir(exist_ok=True)
 
-opf_content = env.get_template('main.opf.j2').render({})
-opf_path = os.path.join(epub_root_dir, 'main.opf')
-with open(opf_path, 'w') as f:
-    f.write(opf_content)
+def epub_root_render(source, target):
+    content = env.get_template(source).render({})
+    path = os.path.join(epub_root_dir, target)
+    with open(path, 'w') as f:
+        f.write(content)
+
+epub_root_render('main.opf.j2', 'main.opf')
+epub_root_render('mimetype.j2', 'mimetype')
+epub_root_render('nav.xhtml.j2', 'nav.xhtml')
+
