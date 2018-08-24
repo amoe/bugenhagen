@@ -40,7 +40,6 @@ for url in part_urls:
         all_containing_tds.append(containing_td)
 
     seen = set()
-
     
     for post_td in all_containing_tds:
         if not post_td in seen:
