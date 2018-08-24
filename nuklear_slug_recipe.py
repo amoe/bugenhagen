@@ -6,7 +6,7 @@ class NuklearSlugArticle(bugenhagen.Article):
         self.body = body
         
 class NuklearSlugRecipe(bugenhagen.Recipe):
-    self.seen = set()
+    seen = set()
 
     def get_urls(self):
         part_urls = []
@@ -46,3 +46,6 @@ class NuklearSlugRecipe(bugenhagen.Recipe):
                 self.seen.add(post_td)
 
         return these_articles
+
+    def is_article_included(self, article):
+        return article.user == 'NUKLEAR-SLUG'
