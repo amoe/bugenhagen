@@ -33,15 +33,7 @@ doc = docx.Document(PATH)
 # for (index, paragraph) in enumerate(doc.paragraphs):
 #     print(index)
 
-# root = lxml.etree.Element('body')
 
-# for paragraph in doc.paragraphs:
-#     child = lxml.etree.Element('p')
-#     child.text = paragraph.text
-#     root.append(child)
-
-# s = lxml.etree.tostring(root)
-# sys.stdout.buffer.write(s)
 
 all_paragraphs = doc.paragraphs
 # index = random.randint(0, len(all_paragraphs))
@@ -52,23 +44,37 @@ print(some_para.style.style_id)
 # print(some_para.style)
 
 def handle_body_text(para):
-    return [para.text]
+    child = lxml.etree.Element('p')
+    child.text = para.text
+    return [child]
 
 def handle_heading(para):
-    return []
+    child = lxml.etree.Element('h1')
+    child.text = para.text
+    return [child]
 
 style_handlers = {
     'Style121': handle_heading,
     'Style118': handle_body_text
 }
 
+root = lxml.etree.Element('body')
+
 for p in all_paragraphs:
+    print(len(p.paragraph_format.tab_stops))
     style_id = p.style.style_id
     handler = style_handlers.get(style_id, lambda x: [])
     elements = handler(p)
 
     for e in elements:
-        print(e)
+        root.append(e)
+
+et = lxml.etree.ElementTree(root)
+with open('foo.html', 'wb') as f:
+    et.write(f, pretty_print=True)
+
+# for paragraph in doc.paragraphs:
+
 
 # paragraphstyle has ids
 # style_id
