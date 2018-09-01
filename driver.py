@@ -3,6 +3,7 @@ import bs4
 import nuklear_slug_recipe
 import pprint
 import renderer
+import archiver
 
 PARSER = 'lxml'
 
@@ -20,4 +21,12 @@ for url in this_recipe.get_urls():
 filtered_articles = filter(this_recipe.is_article_included, all_articles)
 
 renderer = renderer.Renderer(epub_root_dir="epub_out")
-renderer.make_epub(filtered_articles)
+
+extra_context = {
+    'title': this_recipe.get_title()
+}
+
+renderer.make_epub(filtered_articles, extra_context)
+
+archiver = archiver.Archiver()
+archiver.archive()

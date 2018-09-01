@@ -8,6 +8,9 @@ class NuklearSlugArticle(bugenhagen.Article):
 class NuklearSlugRecipe(bugenhagen.Recipe):
     seen = set()
 
+    def get_title(self):
+        return "Zen and the Art of Running Away"
+
     def get_urls(self):
         part_urls = []
         part_url_template = "https://forum.egosoft.com/viewtopic.php?t=232789&postdays=0&postorder=asc&start=%d"

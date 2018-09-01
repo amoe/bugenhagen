@@ -28,7 +28,7 @@ class Renderer(object):
             f.write(content)
 
 
-    def make_epub(self, articles):
+    def make_epub(self, articles, extra_context={}):
         tmpl = env.get_template('mytemplate.xhtml.j2')
 
         output_dir = "expanded"
@@ -75,6 +75,9 @@ class Renderer(object):
             'articles': compiled_articles,
             'article_subdirectory': article_subdirectory
         }
+
+        articles_context.update(extra_context)
+
 
         self.epub_root_render('main.opf.j2', 'main.opf', articles_context)
         self.epub_root_render('mimetype.j2', 'mimetype')
