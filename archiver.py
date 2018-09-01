@@ -6,7 +6,6 @@ def epubzip(path):
         path, mode='w', compression=zipfile.ZIP_DEFLATED
     )
 
-base_epub_dir = "epub_skeleton/content"
 
 # These files should be added to the zip before the rest of the files.
 
@@ -22,7 +21,7 @@ class Archiver(object):
     def __init__(self):
         pass
 
-    def archive(self):
+    def archive(self, base_epub_dir):
         to_add = []
 
         for metadata_file in EPUB_METADATA_FILES:
