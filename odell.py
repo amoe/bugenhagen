@@ -45,6 +45,10 @@ print(some_para.style.style_id)
 
 def handle_body_text(para):
     child = lxml.etree.Element('p')
+    print(para.paragraph_format.line_spacing)
+
+    
+
     child.text = para.text
     return [child]
 
@@ -58,11 +62,13 @@ style_handlers = {
     'Style118': handle_body_text
 }
 
+print(len(doc.inline_shapes))
+
 root = lxml.etree.Element('body')
 
 for p in all_paragraphs:
-    print(len(p.paragraph_format.tab_stops))
     style_id = p.style.style_id
+
     handler = style_handlers.get(style_id, lambda x: [])
     elements = handler(p)
 
