@@ -51,11 +51,24 @@ some_para = all_paragraphs[index]
 print(some_para.style.style_id)
 # print(some_para.style)
 
+def handle_body_text(para):
+    return [para.text]
+
+def handle_heading(para):
+    return []
+
+style_handlers = {
+    'Style121': handle_heading,
+    'Style118': handle_body_text
+}
 
 for p in all_paragraphs:
     style_id = p.style.style_id
-    if style_id == 'Style121':
-        print(p.text)
+    handler = style_handlers.get(style_id, lambda x: [])
+    elements = handler(p)
+
+    for e in elements:
+        print(e)
 
 # paragraphstyle has ids
 # style_id
