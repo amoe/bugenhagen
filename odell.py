@@ -2,6 +2,7 @@ import docx
 import pprint
 import random
 import lxml
+import sys
 
 # python-docx 0.8.7
 
@@ -32,10 +33,41 @@ doc = docx.Document(PATH)
 # for (index, paragraph) in enumerate(doc.paragraphs):
 #     print(index)
 
+# root = lxml.etree.Element('body')
+
+# for paragraph in doc.paragraphs:
+#     child = lxml.etree.Element('p')
+#     child.text = paragraph.text
+#     root.append(child)
+
+# s = lxml.etree.tostring(root)
+# sys.stdout.buffer.write(s)
+
 all_paragraphs = doc.paragraphs
 # index = random.randint(0, len(all_paragraphs))
-index = 3636
+#index = 3636
+index = 256
 some_para = all_paragraphs[index]
+print(some_para.style.style_id)
+# print(some_para.style)
+
+
+for p in all_paragraphs:
+    style_id = p.style.style_id
+    if style_id == 'Style121':
+        print(p.text)
+
+# paragraphstyle has ids
+# style_id
+
+# i = 0
+# for p in all_paragraphs:
+#     if p.text == 'A Little History':
+#         break
+
+#     i += 1
+
+# print(i)
 
 # API for  paragraph consists of 
 
@@ -49,8 +81,8 @@ some_para = all_paragraphs[index]
  # 'style',
  # 'text'
 
-print(index)
-print(some_para.text)
+# print(index)
+# print(some_para.text)
 
 # for run in some_para.runs:
 #     print(run.text)
@@ -59,13 +91,6 @@ print(some_para.text)
         #     text += run.text
         # return text
 
-root = lxml.etree.Element('root')
-child = lxml.etree.Element('paragraph')
-child.text = some_para.text
-root.append(child)
-
-s = lxml.etree.tostring(root)
-print(s)
 
 
 # Run public api:
