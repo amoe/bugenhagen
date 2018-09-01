@@ -1,6 +1,7 @@
 import docx
 import pprint
 import random
+import lxml
 
 # python-docx 0.8.7
 
@@ -51,10 +52,21 @@ some_para = all_paragraphs[index]
 print(index)
 print(some_para.text)
 
-for run in some_para.runs:
-    print(run.text)
-
+# for run in some_para.runs:
+#     print(run.text)
         # text = ''
         # for run in self.runs:
         #     text += run.text
         # return text
+
+root = lxml.etree.Element('root')
+child = lxml.etree.Element('paragraph')
+child.text = some_para.text
+root.append(child)
+
+s = lxml.etree.tostring(root)
+print(s)
+
+
+# Run public api:
+# You can query for bold, which is the self.font.bold and self.font.italic call
